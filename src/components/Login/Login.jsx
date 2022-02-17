@@ -1,15 +1,28 @@
 /* eslint-disable max-len */
 /* eslint linebreak-style: ["error", "windows"] */
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useEffect } from 'react';
 import GoogleLogin from 'react-google-login';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 // eslint-disable-next-line react/prop-types
-const Login = ({ setUser, setIsAuth }) => {
-  const responseGoogle = (response) => {
-    console.log(response.profileObj);
+const Login = ({ setUser, setIsAuth, isAuth }) => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isAuth) {
+      history.push('/profile');
+    }
+  }, [isAuth]);
+
+  const authSuccess = (response) => {
     setIsAuth(true);
     setUser(response.profileObj);
+  };
+
+  const authFailed = (response) => {
+    console.log('Something wrong');
+    setIsAuth(false);
   };
 
   return (
@@ -17,8 +30,8 @@ const Login = ({ setUser, setIsAuth }) => {
       <GoogleLogin
         clientId="822156599761-k7i7kqoo3nabrsuivnrimet796selep3.apps.googleusercontent.com"
         buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
+        onSuccess={authSuccess}
+        onFailure={authFailed}
         cookiePolicy="single_host_origin"
       />
     </div>

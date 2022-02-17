@@ -3,7 +3,7 @@ import React from 'react';
 
 const Main = () => (
   <div>
-    Some img
+    Some image
   </div>
 );
 

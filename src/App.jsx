@@ -24,10 +24,10 @@ export const App = () => {
             <Main />
           </Route>
           <Route path="/login">
-            <Login setUser={setUser} setIsAuth={setIsAuth} />
+            <Login setUser={setUser} setIsAuth={setIsAuth} isAuth={isAuth} />
           </Route>
           <Route path="/profile">
-            <Profile {...user} />
+            <Profile {...user} isAuth={isAuth} />
           </Route>
           <Redirect to="/" />
         </Switch>
